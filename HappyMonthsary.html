@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Monthsary!</title>
+    <style>
+        /* Set default background and remove margins */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: pink;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Message styling with responsive font size */
+        #message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8vw; /* Responsive font size */
+            color: white;
+            font-family: 'Dancing Script', cursive; /* Fancy cursive font */
+            text-align: center;
+            text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px red, 0 0 40px red, 0 0 50px red; /* Shine effect */
+            animation: shine 2s infinite alternate; /* Shimmer effect */
+        }
+
+        /* Shine effect animation */
+        @keyframes shine {
+            0% {
+                text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px red, 0 0 40px red;
+            }
+            100% {
+                text-shadow: 0 0 20px gold, 0 0 30px gold, 0 0 40px red, 0 0 50px red;
+            }
+        }
+
+        /* Heart shape and animation */
+        .heart {
+            position: absolute;
+            background-color: red;
+            transform: rotate(-45deg);
+            animation: float 15s ease-in-out infinite;
+            width: 100px;
+            height: 100px;
+        }
+
+        /* Create the heart shape using before/after */
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: inherit;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 50px;
+            top: 0;
+        }
+
+        /* Heart floating animation */
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(-45deg); /* Start below the screen */
+            }
+            100% {
+                transform: translateY(-1500px) rotate(-45deg); /* End far above */
+            }
+        }
+
+        /* Sparkle styling */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: yellow;
+            border-radius: 50%;
+            box-shadow: 0 0 10px yellow, 0 0 20px yellow;
+            animation: sparkleMove 3s infinite ease-in-out;
+        }
+
+        /* Sparkle movement animation */
+        @keyframes sparkleMove {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px);
+                opacity: 0;
+            }
+        }
+
+        /* Media Queries for Mobile Responsiveness */
+        @media (max-width: 768px) {
+            #message {
+                font-size: 10vw; /* Adjust font size for smaller screens */
+            }
+
+            .heart {
+                width: 60px; /* Smaller hearts for mobile */
+                height: 60px;
+            }
+
+            .heart::before,
+            .heart::after {
+                width: 60px; /* Adjust heart circles for mobile */
+                height: 60px;
+            }
+
+            @keyframes float {
+                0% {
+                    transform: translateY(100vh) rotate(-45deg);
+                }
+                100% {
+                    transform: translateY(-800px) rotate(-45deg); /* Shorter float distance for mobile */
+                }
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="message">I love you, Matthew. Happy Monthsary, солнышко!</div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+
+            // Randomly set the heart color (white or red)
+            if (Math.random() > 0.5) {
+                heart.style.backgroundColor = "white";
+            } else {
+                heart.style.backgroundColor = "red";
+            }
+
+            // Set random size with scaling (hearts remain proportional)
+            const heartSize = Math.random() * 40 + 60; // Random size between 60px and 100px (smaller for mobile)
+            heart.style.transform = `scale(${heartSize / 100}) rotate(-45deg)`; // Scale proportionally while maintaining rotation
+
+            // Set random horizontal position for hearts (start slightly below the screen)
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.top = window.innerHeight + "px"; // Start from below the viewport
+
+            // Set random animation duration
+            heart.style.animationDuration = Math.random() * 2 + 15 + "s"; /* Slower duration */
+
+            document.body.appendChild(heart);
+
+            // Remove heart after animation completes (same as animation duration)
+            setTimeout(() => {
+                heart.remove();
+            }, 20000); // Matches the longest animation duration
+        }
+
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+
+            // Set random positions for sparkles
+            sparkle.style.left = Math.random() * window.innerWidth + "px";
+            sparkle.style.top = Math.random() * window.innerHeight + "px";
+
+            document.body.appendChild(sparkle);
+
+            // Remove sparkles after animation completes
+            setTimeout(() => {
+                sparkle.remove();
+            }, 3000);
+        }
+
+        // Create hearts at random intervals
+        setInterval(createHeart, 500);
+
+        // Create sparkles at random intervals
+        setInterval(createSparkle, 200);
+    </script>
+</body>
+</html>
